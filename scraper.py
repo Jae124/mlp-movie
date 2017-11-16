@@ -4,19 +4,34 @@ import urllib2
 import urllib
 
 links = pd.read_csv('links.csv')
+noposters_file = 'noposters.txt'
+api_key = "2908b68"
 
-i = 0
+#open(noposters_file, 'w').close()
 
 for index, row in links.iterrows():
+	
+	
+	try:
+		if int(row['movieId']) > 0:
+			imdbid = str(int(row['imdbId']))
+			if len(imdbid) < 7:
+				diff = 7 - len(imdbid)
+				for i in range(diff):
+					imdbid = "0" + imdbid
+		
+			api_request = "http://www.omdbapi.com/?apikey=" + api_key + "&i=tt" + imdbid
+			
+			poster_link = json.load(urllib2.urlopen(api_request))["Poster"]
 
-	if i < 5:
-
-
-		api_request = "http://www.omdbapi.com/?apikey=ef9d844d&i=tt0" + str(int(row['imdbId']))
-		poster_link = json.load(urllib2.urlopen(api_request))["Poster"]
-		filename_temp = str(int(row['movieId']))
-		filename = "poster_" + filename_temp + ".jpg"
-		urllib.urlretrieve(poster_link, filename)
-
-
-		i = i + 1
+			if poster_link == "N/A":
+				raise KeyError
+		
+			filename_temp = str(int(row['movieId']))
+			extension = poster_link.split('.')[-1]
+			filename = "poster_" + filename_temp + "."+ extension
+			urllib.urlretrieve(poster_link, filename)
+	
+	except KeyError:
+		with open(noposters_file,'ab') as f:
+			f.write(str(int(row['movieId']))+"\n")
