@@ -66,7 +66,6 @@ def get_img_arr(movieid):
 images = []
 indexes_selected = []
 n=0
-x = 0
 for i in mov_data_sm.index:
     img = get_img_arr(i)
     #print img.shape
@@ -75,9 +74,6 @@ for i in mov_data_sm.index:
         indexes_selected.append(i)
     else:
         n+=1
-    x+=1
-    if x%2000 == 0:
-        print(x)
 
 images = np.array(images)
 
@@ -93,13 +89,12 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random
 #random forest model 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
-rfg = RandomForestRegressor(100)
+rfg = RandomForestRegressor(200)
 
 rfg.fit(x_train,y_train)
 rfg_pred = rfg.predict(x_test)
-#rfg_pred = np.zeros(y_test.shape)
 rfg_mse = mean_squared_error(rfg_pred,y_test)
-print ('Random Forest Regressor Test MSE: %d' %rfg_mse)
+print ('Random Forest Regressor Test MSE:',rfg_mse)
 
 from sklearn.externals import joblib
 joblib.dump(rfg,'models/rfg.pkl')
@@ -156,14 +151,14 @@ cnn_pred = model.predict(x_cnn_test)
 print('CNN MSE:', scores[0])
 model.save('models/cnn')
 
-print('Show Predictions from Both Models')
+print('Show Sample Predictions from Both Models')
 print(rfg_pred[:10])
 print (cnn_pred[:10])
 
 print('Ensemble both models with LR')
 
 from sklearn.linear_model import LinearRegression
-x_lr_train = np.column_stack((rfg.predict(x_train)),(model.predict(x_cnn_train)))
+x_lr_train = np.column_stack((rfg.predict(x_train),model.predict(x_cnn_train)))
 lr = LinearRegression()
 lr.fit(x_lr_train,y_train)
 lr_pred = lr.predict(np.column_stack((rfg_pred,cnn_pred)))
