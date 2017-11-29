@@ -1,0 +1,2 @@
+ssh -i "inbtcwetrust.pem" ec2-user@ec2-54-210-181-144.compute-1.amazonaws.com
+scp -i "inbtcwetrust.pem" ec2-user@ec2-54-210-181-144.compute-1.amazonaws.com:/
