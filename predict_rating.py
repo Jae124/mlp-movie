@@ -4,10 +4,10 @@ from sklearn.externals import joblib
 import urllib
 
 
-def predict_rating(director, genre1, genre2, genre3, runtime, img_url):
+def predict_rating(director_1, genre1, genre2, genre3, runtime, img_url):
 
 	#director = 'Joss Whedon'
-	director = 'Director_'+director
+	director = 'Director_'+director_1
 	#genres = ['Action','Adventure','Sci-Fi']
 	#runtime = 143
 	#img_url = 
@@ -21,6 +21,7 @@ def predict_rating(director, genre1, genre2, genre3, runtime, img_url):
 	x['Runtime']=runtime
 	x.drop('rating',axis=0,inplace=True)
 
+	x = x.reshape((1,3875))
 	from PIL import Image
 	from scipy.misc import imresize
 
@@ -42,4 +43,4 @@ def predict_rating(director, genre1, genre2, genre3, runtime, img_url):
 
 	x1 = rfg.predict(x)
 	x2 = model.predict(img)
-	print(lr.predict(np.append(x1,x2.flatten())))
+	return lr.predict([np.append(x1,x2.flatten())])
