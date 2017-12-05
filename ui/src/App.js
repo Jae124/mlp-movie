@@ -18,8 +18,8 @@ class App extends Component {
         runtime : "194", 
         director : "James Cameron",
         genre1 : 'Romance',
-        genre2 : 'Historical',
-        genre3 : 'Drama',
+        genre2 : 'Drama',
+        genre3 : '(no genres listed)',
         poster_url : 'http://img.moviepostershop.com/titanic-movie-poster-1997-1020339699.jpg'
       };
 
@@ -41,14 +41,16 @@ class App extends Component {
         + "&genre1=" + this.state.genre1 
         + "&genre2=" + this.state.genre2
         + "&genre3=" + this.state.genre3         
-        + "&poster_url=" + this.state.poster_url,
+        + "&image_url=" + this.state.poster_url,
       async: false
     })
+    console.log("Prediction Data:")
     console.log(predictData)
 
     // Parse data from here
 
     var myData = predictData.responseJSON
+    console.log("JSON Response:")
     console.log(myData)
 
     return (

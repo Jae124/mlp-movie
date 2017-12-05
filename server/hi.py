@@ -13,7 +13,10 @@ class WelcomeHandler(RequestHandler):
         self.write("Welcome to our project page")
 
 class PredictHandler(RequestHandler):
-    
+    def set_default_headers(self):
+        super(PredictHandler, self).set_default_headers()
+        self.set_header('Access-Control-Allow-Origin', 'http://localhost:3000')
+        self.set_header('Access-Control-Allow-Credentials', 'true')
 
     def get(self):
         runtime = int(self.get_argument('runtime'))
@@ -21,8 +24,6 @@ class PredictHandler(RequestHandler):
         genre1 = str(self.get_argument('genre1'))
         genre2 = str(self.get_argument('genre2'))
         genre3 = str(self.get_argument('genre3'))
-
-        ######### process in the modeling script?
         poster = str(self.get_argument('image_url'))
 
         ########### switch 'model.predict()' w/method call name equivalent to our model
@@ -30,11 +31,7 @@ class PredictHandler(RequestHandler):
         self.write('{}'.format(rating))
 
 class ModelApplication(Application):
-    def set_default_headers(self):
-        super(ModelApplication, self).set_default_headers()
-        self.set_header('Access-Control-Allow-Origin', 'http://localhost:3000')
-        self.set_header('Access-Control-Allow-Credentials', 'true')
-
+    
     def __init__(self, handler_mapping):
         super(ModelApplication, self).__init__(handler_mapping)
 
