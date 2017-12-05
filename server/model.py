@@ -9,7 +9,7 @@ class ModelHandler(object):
         # X = training_data[self.x_columns]
         # y = training_data[self.y_column]
 
-        ################ basically need to insert our model here
+        ################ basically need to insert our model here (instead of LR)
         self.model = LinearRegression().fit(X, y) 
         print(self.model.coef_)
         return self.model
