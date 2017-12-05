@@ -1,5 +1,10 @@
 from tornado.web import Application, RequestHandler
 from tornado.ioloop import IOLoop
+import sys
+import os
+os.chdir("..")
+sys.path.insert(0,os.path.abspath(os.curdir))
+from predict_rating import predict_rating
 
 from model import ModelHandler
 
@@ -19,12 +24,11 @@ class PredictHandler(RequestHandler):
         poster = str(self.get_argument('image_url'))
 
         ########### switch 'model.predict()' w/method call name equivalent to our model
-        rating = self.application.model_handler.model.predict(runtime, director, genre1, genre2, genre3, poster)
+        rating = predict_rating(director, genre1, genre2, genre3, runtime, poster)
         self.write('{}'.format(rating))
 
 class ModelApplication(Application):
     def __init__(self, handler_mapping):
-        self.model_handler = ModelHandler()
         super(ModelApplication, self).__init__(handler_mapping)
 
 
