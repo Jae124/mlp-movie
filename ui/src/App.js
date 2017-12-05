@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import UserInput from './UserInput.js';
 import './App.css';
 
-// import $ from 'jquery';
+import $ from 'jquery';
 
 
 class App extends Component {
@@ -15,37 +15,41 @@ class App extends Component {
 
       // class constructor 
       this.state = {
-          input: [
-              {
-                  runtime : "194", 
-                  director : "James Cameron",
-                  genre : 'Romance',
-                  poster_url : 'http://img.moviepostershop.com/titanic-movie-poster-1997-1020339699.jpg'
-              }
-          ]
+        runtime : "194", 
+        director : "James Cameron",
+        genre1 : 'Romance',
+        genre2 : 'Historical',
+        genre3 : 'Drama',
+        poster_url : 'http://img.moviepostershop.com/titanic-movie-poster-1997-1020339699.jpg'
       };
 
       this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit( rt, dir, gnr, url ){
-    const newInput = [{ runtime : rt, director : dir, genre : gnr, poster_url : url }];
-    this.setState( { input: newInput} );
+  handleSubmit( rt, dir, gnr1,gnr2,gnr3, url ){
+    const newInput = { runtime : rt, director : dir, 
+      genre1 : gnr1,genre2 : gnr2,genre3 : gnr3, poster_url : url };
+    this.setState( newInput );
   }
 
   render() {
 
-    // var predictData = $.ajax({
-    //   type: "GET",
-    //   url: "http://localhost:7777/predict?runtime=###&director=#######&genre=####&poster_url=####",
-    //   async: false
-    // })
-    // console.log(predictData)
+    var predictData = $.ajax({
+      type: "GET",
+      url: "http://localhost:7777/predict?runtime=" + this.state.runtime 
+        + "&director=" + this.state.director 
+        + "&genre1=" + this.state.genre1 
+        + "&genre2=" + this.state.genre2
+        + "&genre3=" + this.state.genre3         
+        + "&poster_url=" + this.state.poster_url,
+      async: false
+    })
+    console.log(predictData)
 
-    // // Parse data from here
+    // Parse data from here
 
-    // var myData = predictData.responseJSON
-    // console.log(myData)
+    var myData = predictData.responseJSON
+    console.log(myData)
 
     return (
       <div>

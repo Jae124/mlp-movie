@@ -23,7 +23,9 @@ class UserInput extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleRuntimeChange = this.handleRuntimeChange.bind(this);
         this.handleDirectorChange = this.handleDirectorChange.bind(this);
-        this.handleGenreChange = this.handleGenreChange.bind(this);
+        this.handleGenre1Change = this.handleGenre1Change.bind(this);
+        this.handleGenre2Change = this.handleGenre2Change.bind(this);
+        this.handleGenre3Change = this.handleGenre3Change.bind(this);        
         this.handlePosterChange = this.handlePosterChange.bind(this);
         
     }
@@ -50,8 +52,16 @@ class UserInput extends React.Component {
         this.setState( { director : val } );
     }
 
-    handleGenreChange( val ){
-        this.setState( { genre : val } );
+    handleGenre1Change( val ){
+        this.setState( { genre1 : val } );
+    }
+
+    handleGenre2Change( val ){
+        this.setState( { genre2 : val } );
+    }
+
+    handleGenre3Change( val ){
+        this.setState( { genre3 : val } );
     }
 
     handlePosterChange( val ){
@@ -72,9 +82,15 @@ class UserInput extends React.Component {
                     <TextInput name="director" label="Director"
                         value={this.state.director}
                         onChange={this.handleDirectorChange}/>
-                    <TextInput name="genre" label="Genre"
-                        value={this.state.genre}
-                        onChange={this.handleGenreChange}/>
+                    <TextInput name="genre1" label="Genre1"
+                        value={this.state.genre1}
+                        onChange={this.handleGenre1Change}/>
+                    <TextInput name="genre2" label="Genre2"
+                        value={this.state.genre2}
+                        onChange={this.handleGenre2Change}/>
+                    <TextInput name="genre3" label="Genre3"
+                        value={this.state.genre3}
+                        onChange={this.handleGenre3Change}/>
                     <TextInput name="poster_url" label="Poster URL"
                         value={this.state.poster_url}
                         onChange={this.handlePosterChange}/>
