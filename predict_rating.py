@@ -1,18 +1,19 @@
 import numpy as np 
 import pandas as pd 
-
 from sklearn.externals import joblib
 
+director = 'Alan Rudolph'
+director = 'Director_'+director
+genres = ['Action','Adventure']
+runtime = 119
+
 train = pd.read_csv('data/movie_train.csv',index_col=0)
-
-x_len = train.shape[1]-1
-#hard coidng x for now
-
-x = np.zeros((1,x_len))
-x[0,0]=120
-x[0,10]=1
-x[0,20]=1
-x[0,100]=1
+x = train.iloc[0]
+x[director] = 1
+for g in genres:
+	x[g]=1
+x['Runtime']=runtime
+x.drop('rating',axis=0,inplace=True)
 
 from PIL import Image
 from scipy.misc import imresize
@@ -29,6 +30,8 @@ rfg = joblib.load('models/rfg.pkl')
 lr = joblib.load('models/lr.pkl')
 
 x1 = rfg.predict(x)
-x2 = mopdel.predict(img)
+#x2 = model.predict(img)
+x2 = 4.5
 print(x1)
-print(lr.predict(np.array([[x1,4.5]])))
+print(x2)
+print(lr.predict(np.array([[x1,x2]])))
