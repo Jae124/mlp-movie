@@ -13,6 +13,10 @@ class WelcomeHandler(RequestHandler):
         self.write("Welcome to our project page")
 
 class PredictHandler(RequestHandler):
+    def set_default_headers(self):
+        super(PredictHandler, self).set_default_headers()
+        self.set_header('Access-Control-Allow-Origin', 'http://localhost:3000')
+        self.set_header('Access-Control-Allow-Credentials', 'true')
     def get(self):
         runtime = int(self.get_argument('runtime'))
         director = str(self.get_argument('director'))
