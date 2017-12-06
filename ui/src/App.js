@@ -49,7 +49,7 @@ class App extends Component {
 
     // Parse data from here
 
-    var myData = predictData.responseJSON
+    var myData = predictData.responseText
     console.log("JSON Response:")
     console.log(myData)
 

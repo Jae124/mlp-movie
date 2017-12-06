@@ -14,7 +14,9 @@ class UserInput extends React.Component {
         this.state = {
             runtime : '',
             director : '',
-            genre : '',
+            genre1 : '',
+            genre2 : '',
+            genre3 : '',
             poster_url : ''
          }
 
@@ -35,7 +37,7 @@ class UserInput extends React.Component {
         // ** cannot return false like HTML- use preventDefault()
         e.preventDefault(); 
         console.log(this.state);
-        this.props.onSubmit( this.state.runtime, this.state.director, this.state.genre, this.state.poster_url );
+        this.props.onSubmit( this.state.runtime, this.state.director, this.state.genre1, this.state.genre2,this.state.genre3,this.state.poster_url );
     }
 
     // => try to handle both events in one method with event.target
