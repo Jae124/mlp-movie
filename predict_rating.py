@@ -20,7 +20,6 @@ def predict_rating(director_1, genre1, genre2, genre3, runtime, img_url):
 		x[g]=1
 	x['Runtime']=runtime
 	x.drop('rating',axis=0,inplace=True)
-
 	x = x.reshape((1,3875))
 	from PIL import Image
 	from scipy.misc import imresize
