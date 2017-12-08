@@ -16,8 +16,11 @@ def predict_rating(director_1, genre1, genre2, genre3, runtime, img_url):
 	train = pd.read_csv('data/movie_train.csv',index_col=0)
 	x = train.iloc[0]
 	x[director] = 1
+
 	for g in genres:
-		x[g]=1
+		if g != "":
+			x[g] = 1
+	
 	x['Runtime']=runtime
 	x.drop('rating',axis=0,inplace=True)
 	x = x.reshape((1,3875))

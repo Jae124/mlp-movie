@@ -6,7 +6,7 @@ This machine learning program will predict movie ratings based on runtime, direc
 Please download the models [here](http://bit.ly/2BE1eZ4)
 and place the `models` folder in the same directory as predict_rating.py. 
 
-JavaScript package manager, npm, should be installed.
+JavaScript package manager, npm, and react (can be done through npm) should be installed.
 
 Python 2.7 should be used.
 
@@ -54,7 +54,8 @@ Go to "localhost:3000" in your browser.
 
 
 ### Result
-The prediction output will be shown as follows:
+Please wait for around 5 seconds for the prediction output.
+The output will be shown as follows:
 ```
 Predicted rating: [ x ] 
 ```
@@ -64,8 +65,23 @@ where x is the rating (double) that follows a 5-star rating system [0-5].
 
 ## Future Sprints
 
+- Rebekah
 * Drop-down menu for Director, Genre
-* "Prettier" UI
+* Star Rating display 
+* "Prettier" UI 
+	- Display poster passed
+	- Slide show of posters
+
+- Richard
+* improve model by adding more features (actors)
+* try different model storage to improve prediction speed, if possible
+
+- Valmik
+* Error Handling
+* Decouple pre processing and predictor
+
+
+* For rating prediction, get a probability distribution?
 
 
 

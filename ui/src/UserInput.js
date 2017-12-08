@@ -3,6 +3,8 @@ import TextInput from './TextInput.js';
 
 // import {Typeahead} from 'react-bootstrap-typeahead';
 
+// import DirectorData from '../data/director_lst.csv';
+
 // Runtime- int
 // Director- string
 // Genre (pick 3)- ???
@@ -19,6 +21,13 @@ class UserInput extends React.Component {
             genre3 : '',
             poster_url : ''
          }
+
+        this.directorOptions = [];
+
+        this.genreOptions = ["Action","Adventure","Animation","Children's",
+        "Comedy","Crime","Documentary","Drama","Fantasy",
+        "Film-Noir","Horror","Musical","Mystery","Romance","Sci-Fi",
+        "Thriller","War","Western","(no genres listed)"];
 
         // ** methods not bound by default in JS -> without bound, 'undefined'
         // ** if method referred without (), need to bind that method
@@ -72,38 +81,37 @@ class UserInput extends React.Component {
     
     render(){
         return(
-            <div>
-                <form className='card-form'>
-                    <h2> Input parameters to predict rating </h2>
-                    {
-                    //** in JSX, pass ftn as event handlers, rather than string in HTML
-                    }
-                    <TextInput name="runtime" label="Runtime"
-                        value={this.state.runtime}
-                        onChange={this.handleRuntimeChange}/>  
-                    <TextInput name="director" label="Director"
-                        value={this.state.director}
-                        onChange={this.handleDirectorChange}/>
-                    <TextInput name="genre1" label="Genre1"
-                        value={this.state.genre1}
-                        onChange={this.handleGenre1Change}/>
-                    <TextInput name="genre2" label="Genre2"
-                        value={this.state.genre2}
-                        onChange={this.handleGenre2Change}/>
-                    <TextInput name="genre3" label="Genre3"
-                        value={this.state.genre3}
-                        onChange={this.handleGenre3Change}/>
-                    <TextInput name="poster_url" label="Poster URL"
-                        value={this.state.poster_url}
-                        onChange={this.handlePosterChange}/>
-                    <button className="btn btn-primary"
-                        onClick={this.handleSubmit}>Submit</button>
+            <div className="display">
+                <div className="input">
+                    <h3> Input parameters to predict rating: </h3>                
+                    <form className='input-typeahead'>
+                        <TextInput name="runtime" label="Runtime"
+                            value={this.state.runtime}
+                            onChange={this.handleRuntimeChange}/>  
+                        <TextInput name="director" label="Director"
+                            value={this.state.director}
+                            onChange={this.handleDirectorChange}/>
+                        <TextInput name="genre1" label="Genre1"
+                            value={this.state.genre1}
+                            onChange={this.handleGenre1Change}/>
+                        <TextInput name="genre2" label="Genre2"
+                            value={this.state.genre2}
+                            onChange={this.handleGenre2Change}/>
+                        <TextInput name="genre3" label="Genre3"
+                            value={this.state.genre3}
+                            onChange={this.handleGenre3Change}/>
+                        <TextInput name="poster_url" label="Poster URL"
+                            value={this.state.poster_url}
+                            onChange={this.handlePosterChange}/>
+                        <button className="btn btn-primary"
+                            onClick={this.handleSubmit}>Submit</button>
 
-                    {/* Name:
-                    <input type="name"></input><br/>
-                    Message:
-                    <input type="message"></input> */}
-                </form>
+                        {/* Name:
+                        <input type="name"></input><br/>
+                        Message:
+                        <input type="message"></input> */}
+                    </form>
+                </div>
             </div>
         );
     }
