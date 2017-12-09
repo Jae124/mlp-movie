@@ -35,6 +35,7 @@ If a window pops up asking "Do you want the application “Python.app” to acce
 Start the React front-end:
 ```
 $ cd ui
+$ npm install
 $ npm start
 ```
 
@@ -42,8 +43,8 @@ Go to "localhost:3000" in your browser.
 
 ### Parameters
 
-| Parameter        | Data type           | Notes  |
-| --- |:------:| ----------------------------:|
+| Parameter  | Data type  | Notes  |
+| --- |:------:| ------------------:|
 | Runtime     | int |  |
 | Director      | string      |   Only use the directors listed in `data/director_lst` |
 | Genre1 | string      |     |
@@ -63,26 +64,28 @@ where x is the rating (double) that follows a 5-star rating system [0-5].
 
 <hr>
 
-## Future Sprints
+## MVP
 
-- Rebekah
+#### Screenshot
+
+
+## 1st Iteration
+
+#### Rebekah
+* Add screenshot of MVP and 1st Iteration
 * Drop-down menu for Director, Genre
 * Star Rating display 
 * "Prettier" UI 
 	- Display poster passed
 	- Slide show of posters
 
-- Richard
-* improve model by adding more features (actors)
-* try different model storage to improve prediction speed, if possible
+#### Richard
+* Improve model by adding more features (actors)
+* Try different model storage to improve prediction speed, if possible
 
-- Valmik
+#### Valmik
 * Error Handling
 * Decouple pre processing and predictor
 
-
-* For rating prediction, get a probability distribution?
-
-
-
+#### Screenshot
 

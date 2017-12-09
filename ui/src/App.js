@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import ExampleSlide from './ExampleSlide.js';
+import ExampleSlide from './ExampleSlide.js';
 import UserInput from './UserInput.js';
 import './App.css';
 // also using Bootstrap CSS
@@ -57,17 +57,23 @@ class App extends Component {
       console.log("JSON Response:")
       console.log(myData)
 
+        // Format predicted value correctly 
+        // sea
+
       predictDisply = <div><h2>Predicted rating: </h2> {myData}</div>;    
     }
 
     return (
       <div className="page-display">
-        <h1>Movie Rating Prediction</h1>
-        {/* <ExampleSlide/> */}
-        <UserInput onSubmit={this.handleSubmit}/>
-        <br/><br/>
-        {predictDisply}  
-        {/* <OutputPrediction/> */}
+        <div className='left-half'>
+          <ExampleSlide />
+        </div>
+        <div className='right-half'>
+          <h1>Movie Rating Prediction</h1>
+          <UserInput onSubmit={this.handleSubmit}/>
+          <br/><br/>
+          {predictDisply}  
+        </div>
       </div>
     );
   }

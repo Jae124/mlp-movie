@@ -5,11 +5,6 @@ import TextInput from './TextInput.js';
 
 // import DirectorData from '../data/director_lst.csv';
 
-// Runtime- int
-// Director- string
-// Genre (pick 3)- ???
-// poster image- url
-
 class UserInput extends React.Component {
     constructor(props){
         super(props);

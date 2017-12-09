@@ -2,4 +2,24 @@
     margin: 0;
     padding: 20px;
     font-family: 'Roboto Condensed';
+    background: linear-gradient(
+        to right, 
+        #484452 0%, 
+        #484452 50%, 
+        #C7AFBD 50%, 
+        #C7AFBD 100%
+    );
+}
+
+.left-half {
+    height: 100vh;
+    float: left;
+    width: 50%;
+    padding: 20px;    
+  }
+  
+.right-half {
+    float: right;
+    width: 50%;
+    padding: 20px;    
 }
