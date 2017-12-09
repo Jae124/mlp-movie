@@ -43,14 +43,13 @@ Go to "localhost:3000" in your browser.
 
 ### Parameters
 
-| Parameter  | Data type  | Notes  |
-| --- |:------:| ------------------:|
-| Runtime     | int |  |
-| Director      | string      |   Only use the directors listed in `data/director_lst` |
-| Genre1 | string      |     |
-| Genre2 | string      |     |
-| Genre3 | string      |  For all genre, only use genres listed in `data/genres_list`    |
-| Poster URL | string      |  Only use IMDB image url's. Goto the IMDB page for a movie; click the poster image; right-click and select 'Copy Link Address' or equivalent   |
+| Parameter  | Data type  | Notes                                      |
+| ---------  | ---------- | :----------------------------------------- |
+| Runtime    | int        |                                            |
+| Director   | string     | Only use the directors listed in `data/director_lst`|
+| Genre      | string     | For all genre, only use genres listed in `data/genres_list`|
+| Poster URL | string     | Only use IMDB image url's. Goto the IMDB page for a movie; click the poster image; right-click and select 'Copy Link Address' or equivalent  |
+
 
 
 
@@ -64,15 +63,19 @@ where x is the rating (double) that follows a 5-star rating system [0-5].
 
 <hr>
 
-## MVP
+## Minimum Viable Product (MVP)
 
-#### Screenshot
+#### Screenshots
+Starting Screen            |  Results Screen
+:-------------------------:|:-------------------------:
+![image](./mvp_screen.png) |![image](./mvp_result.png)
+
+The best way to see the MVP is to checkout the commit with message "MVP Done": `$ git checkout 50760f0`. You should restart the back-end server. After you are done looking around, you can go back to the most current branch by`$ git checkout master`.
 
 
 ## 1st Iteration
 
 #### Rebekah
-* Add screenshot of MVP and 1st Iteration
 * Drop-down menu for Director, Genre
 * Star Rating display 
 * "Prettier" UI 
