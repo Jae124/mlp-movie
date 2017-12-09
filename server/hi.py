@@ -20,15 +20,16 @@ class PredictHandler(RequestHandler):
     def get(self):
         runtime = int(self.get_argument('runtime'))
         director = str(self.get_argument('director'))
-        genre1 = str(self.get_argument('genre1'))
-        genre2 = str(self.get_argument('genre2'))
-        genre3 = str(self.get_argument('genre3'))
+        genres = self.get_argument('genres')
+       
+        g = genres.split(",")   
+
 
         ######### process in the modeling script?
         poster = str(self.get_argument('image_url'))
 
         ########### switch 'model.predict()' w/method call name equivalent to our model
-        rating = predict_rating(director, genre1, genre2, genre3, runtime, poster)
+        rating = predict_rating(director, g, runtime, poster)
         self.write('{}'.format(rating))
 
 class ModelApplication(Application):

@@ -18,6 +18,7 @@ class TextInput extends React.Component{
                 <label className="control-label">{this.props.label}</label>
                 <input type="text" className="form-control"
                     name={this.props.name} value={this.props.value}
+                    placeholder={this.props.example}
                     onChange={this.handleChange}></input>
             </div>
         )

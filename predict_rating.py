@@ -4,7 +4,7 @@ from sklearn.externals import joblib
 import urllib
 
 
-def predict_rating(director_1, genre1, genre2, genre3, runtime, img_url):
+def predict_rating(director_1, genres, runtime, img_url):
 
 	#director = 'Joss Whedon'
 	director = 'Director_'+director_1
@@ -12,7 +12,7 @@ def predict_rating(director_1, genre1, genre2, genre3, runtime, img_url):
 	#runtime = 143
 	#img_url = 
 	filename = 'test.jpg'
-	genres = [genre1, genre2, genre3]
+
 	train = pd.read_csv('data/movie_train.csv',index_col=0)
 	x = train.iloc[0]
 	x[director] = 1

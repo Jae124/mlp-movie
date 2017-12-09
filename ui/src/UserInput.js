@@ -1,9 +1,9 @@
 import React from 'react';
 import TextInput from './TextInput.js';
-
-// import {Typeahead} from 'react-bootstrap-typeahead';
-
-// import DirectorData from '../data/director_lst.csv';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+import {Typeahead} from 'react-bootstrap-typeahead';
+import DirectorData from './directors.json';
 
 class UserInput extends React.Component {
     constructor(props){
@@ -11,28 +11,41 @@ class UserInput extends React.Component {
         this.state = {
             runtime : '',
             director : '',
-            genre1 : '',
-            genre2 : '',
-            genre3 : '',
+            genres : [],
             poster_url : ''
          }
 
-        this.directorOptions = [];
+        this.directorOptions = DirectorData;
 
-        this.genreOptions = ["Action","Adventure","Animation","Children's",
-        "Comedy","Crime","Documentary","Drama","Fantasy",
-        "Film-Noir","Horror","Musical","Mystery","Romance","Sci-Fi",
-        "Thriller","War","Western","(no genres listed)"];
+        this.genreOptions = [
+            { value: "Action",label: "Action"},
+            { value: "Adventure",label: "Adventure"},
+            { value: "Animation",label: "Animation"},
+            { value: "Children's",label: "Children's"},
+            { value: "Comedy",label: "Comedy"},
+            { value: "Crime",label: "Crime"},
+            { value: "Documentary",label: "Documentary"},
+            { value: "Drama",label: "Drama"},
+            { value: "Fantasy",label: "Fantasy"},
+            { value: "Film-Noir",label: "Film-Noir"},
+            { value: "Horror",label: "Horror"},
+            { value: "Musical",label: "Musical"},
+            { value: "Mystery",label: "Mystery"},
+            { value: "Romance",label: "Romance"},
+            { value: "Sci-Fi",label: "Sci-Fi"},
+            { value: "Thriller",label: "Thriller"},
+            { value: "War",label: "War"},
+            { value: "Western",label: "Western"},
+            { value: "(no genres listed)",label: "(no genres listed)"}
+        ];
 
         // ** methods not bound by default in JS -> without bound, 'undefined'
         // ** if method referred without (), need to bind that method
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleRuntimeChange = this.handleRuntimeChange.bind(this);
-        this.handleDirectorChange = this.handleDirectorChange.bind(this);
-        this.handleGenre1Change = this.handleGenre1Change.bind(this);
-        this.handleGenre2Change = this.handleGenre2Change.bind(this);
-        this.handleGenre3Change = this.handleGenre3Change.bind(this);        
+        this.handleDirectorChange = this.handleDirectorChange.bind(this); 
         this.handlePosterChange = this.handlePosterChange.bind(this);
+        this.handleGenreChange = this.handleGenreChange.bind(this);
         
     }
 
@@ -41,7 +54,7 @@ class UserInput extends React.Component {
         // ** cannot return false like HTML- use preventDefault()
         e.preventDefault(); 
         console.log(this.state);
-        this.props.onSubmit( this.state.runtime, this.state.director, this.state.genre1, this.state.genre2,this.state.genre3,this.state.poster_url );
+        this.props.onSubmit( this.state.runtime, this.state.director, this.state.genres,this.state.poster_url );
     }
 
     // => try to handle both events in one method with event.target
@@ -54,26 +67,29 @@ class UserInput extends React.Component {
         // ** there's another form - setState( function(prevState, props) )
     }
 
-    handleDirectorChange( val ){
-        this.setState( { director : val } );
-    }
-
-    handleGenre1Change( val ){
-        this.setState( { genre1 : val } );
-    }
-
-    handleGenre2Change( val ){
-        this.setState( { genre2 : val } );
-    }
-
-    handleGenre3Change( val ){
-        this.setState( { genre3 : val } );
-    }
-
     handlePosterChange( val ){
         this.setState( { poster_url : val } );
     }
-    
+
+    handleDirectorChange(event) {
+        if (event.length > 0) {
+            //this.props.onChange(..);  Call this.props.onChange with 
+            // the selected symbol to propagate it
+            // to the App component, which will handle it via its own onChane prop,
+            // ultimately  used to fetch the data for the LineChart component.
+            // this.props.onChange( event[0] ); // The director name passed to onChange()
+            console.log(event);
+            // this.handleDirectorChange( event[0] );
+            this.setState({ director : event[0] } )
+        }
+    }
+
+    handleGenreChange( genreList ){
+        const tagValues = genreList.map(g => g.value);
+        console.log(tagValues);
+        this.setState({genres: tagValues});
+    }
+
     render(){
         return(
             <div className="display">
@@ -81,21 +97,38 @@ class UserInput extends React.Component {
                     <h3> Input parameters to predict rating: </h3>                
                     <form className='input-typeahead'>
                         <TextInput name="runtime" label="Runtime"
+                            example="194"
                             value={this.state.runtime}
-                            onChange={this.handleRuntimeChange}/>  
-                        <TextInput name="director" label="Director"
+                            onChange={this.handleRuntimeChange}/> 
+
+
+                        {/* Typeahead */}
+                        {/* <TextInput name="director" label="Director"
+                            example="James Cameron"
                             value={this.state.director}
-                            onChange={this.handleDirectorChange}/>
-                        <TextInput name="genre1" label="Genre1"
-                            value={this.state.genre1}
-                            onChange={this.handleGenre1Change}/>
-                        <TextInput name="genre2" label="Genre2"
-                            value={this.state.genre2}
-                            onChange={this.handleGenre2Change}/>
-                        <TextInput name="genre3" label="Genre3"
-                            value={this.state.genre3}
-                            onChange={this.handleGenre3Change}/>
+                            onChange={this.handleDirectorChange}/> */}
+                        
+                        <div className="form-group">
+                            <label className="control-label">Director</label>
+                                <Typeahead
+                                    align="left"
+                                    labelKey="director"
+                                    onChange={this.handleDirectorChange}
+                                    minLength={1}
+                                    placeholder="Start typing director name..."
+                                    options={this.directorOptions}/> 
+                        </div>
+
+                        {/* Select */}
+                        <div className="form-group">
+                            <label className="control-label">Genre</label>
+                                <Select options={this.genreOptions} 
+                                    multi value={this.state.genres} 
+                                    onChange={this.handleGenreChange}/>
+                        </div>
+
                         <TextInput name="poster_url" label="Poster URL"
+                            example="http://img.moviepostershop.com/titanic-movie-poster-1997-1020339699.jpg"
                             value={this.state.poster_url}
                             onChange={this.handlePosterChange}/>
                         <button className="btn btn-primary"

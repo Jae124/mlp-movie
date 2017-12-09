@@ -19,18 +19,16 @@ class App extends Component {
         showInfo : false,
         runtime : "194", 
         director : "James Cameron",
-        genre1 : 'Romance',
-        genre2 : 'Drama',
-        genre3 : '(no genres listed)',
+        genres : [],
         poster_url : 'http://img.moviepostershop.com/titanic-movie-poster-1997-1020339699.jpg'
       };
 
       this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit( rt, dir, gnr1,gnr2,gnr3, url ){
+  handleSubmit( rt, dir, gnr, url ){
     const newInput = { showInfo : true, runtime : rt, director : dir, 
-      genre1 : gnr1,genre2 : gnr2,genre3 : gnr3, poster_url : url };
+      genres : gnr, poster_url : url };
     this.setState( newInput );
   }
 
@@ -44,9 +42,7 @@ class App extends Component {
         type: "GET",
         url: "http://localhost:7777/predict?runtime=" + this.state.runtime 
           + "&director=" + this.state.director 
-          + "&genre1=" + this.state.genre1 
-          + "&genre2=" + this.state.genre2
-          + "&genre3=" + this.state.genre3         
+          + "&genres=" + this.state.genres      
           + "&image_url=" + this.state.poster_url,
         async: false
       })
@@ -57,21 +53,21 @@ class App extends Component {
       console.log("JSON Response:")
       console.log(myData)
 
-        // Format predicted value correctly 
-        // sea
+      // format output
+      var rating = myData.substring(1, myData.length - 1 )
 
-      predictDisply = <div><h2>Predicted rating: </h2> {myData}</div>;    
+      predictDisply = <div><h2>Predicted Rating: </h2> {rating}</div>;    
     }
 
     return (
       <div className="page-display">
         <div className='left-half'>
-          <ExampleSlide />
+          <ExampleSlide/>
         </div>
         <div className='right-half'>
           <h1>Movie Rating Prediction</h1>
           <UserInput onSubmit={this.handleSubmit}/>
-          <br/><br/>
+          <br/>
           {predictDisply}  
         </div>
       </div>
