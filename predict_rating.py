@@ -8,6 +8,7 @@ def predict_rating(director_1, genres, runtime, img_url):
 
 	#director = 'Joss Whedon'
 	director = 'Director_'+director_1
+
 	#genres = ['Action','Adventure','Sci-Fi']
 	#runtime = 143
 	#img_url = 
@@ -20,6 +21,10 @@ def predict_rating(director_1, genres, runtime, img_url):
 	for g in genres:
 		if g != "":
 			x[g] = 1
+
+	#for a in actors:
+		#if a != "":
+			#x['Actors_'+a] = 1	
 	
 	x['Runtime']=runtime
 	x.drop('rating',axis=0,inplace=True)

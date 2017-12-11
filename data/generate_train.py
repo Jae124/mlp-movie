@@ -9,7 +9,7 @@ ratings_agg = ratings[['movieId','rating']].groupby('movieId',as_index=False).me
 
 #imdb = pd.read_csv('ml-latest-small/scraped_imdb_data.csv', encoding='ISO-8859-1')
 imdb = pd.read_csv('ml-latest-small/scraped_imdb_data.csv')
-imdb_data = imdb[['Director','Runtime','movieId']]
+imdb_data = imdb[['Director','Runtime','movieId','Actors']]
 
 #join tables 
 movies.set_index('movieId',inplace=True)
@@ -25,6 +25,15 @@ genres_bin = pd.get_dummies(genres.apply(pd.Series).stack()).sum(level=0)
 mov_data_sm.drop('genres',axis=1,inplace=True)
 mov_data_sm = mov_data_sm.join(genres_bin)
 
+actors = mov_data_sm['Actors'].astype(str).apply(lambda s:s.split(','),0)
+actors_bin = pd.get_dummies(actors.apply(pd.Series).stack(),prefix='Actor').sum(level=0)
+mov_data_sm.drop('Actors',axis=1,inplace=True)
+#mov_data_sm = mov_data_sm.join(actors_bin)
+
+#actor_lst = list(set(actors.apply(pd.Series).stack().tolist()))
+#print(len(actor_lst))
+#pd.Series(actor_lst).to_csv('actor_lst.csv',index=False,header=True)
+
 #preprocess runtime
 mov_data_sm['Runtime'] = mov_data_sm['Runtime'].astype(str).apply(lambda s:s.strip(' min'),0)
 def time_to_int(t):
@@ -36,14 +45,17 @@ mov_data_sm['Runtime'] = mov_data_sm['Runtime'].apply(time_to_int,0).astype(int)
 
 #preprocess directors 
 director_lst = list(set(mov_data_sm['Director'].tolist()))
-pd.Series(director_lst).to_csv('director_lst.csv',index=False,header=True)
+#pd.Series(director_lst).to_csv('director_lst.csv',index=False,header=True)
+
 
 mov_data_sm = pd.get_dummies(mov_data_sm,columns=['Director'])
 
 #drop title
 mov_data_sm.drop('title',axis=1,inplace=True)
 
-mov_data_sm.head(10).to_csv('movie_train.csv',index=True)
+sample = mov_data_sm.head(1)
+sample[:]=0
+sample.to_csv('movie_train.csv',index=True)
 
 
 
