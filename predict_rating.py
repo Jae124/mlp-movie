@@ -15,6 +15,7 @@ def predict_rating(director_1, genres, runtime, img_url):
 	filename = 'test.jpg'
 
 	train = pd.read_csv('data/movie_train.csv',index_col=0)
+	#train = pd.read_csv('data/movie_train_2.csv',index_col=0)
 	x = train.iloc[0]
 	x[director] = 1
 
@@ -46,6 +47,7 @@ def predict_rating(director_1, genres, runtime, img_url):
 
 	model = load_model('models/cnn.h5')
 	rfg = joblib.load('models/rfg.pkl')
+	#rfg = joblib.load('models/rfg_2.pkl')
 	lr = joblib.load('models/lr.pkl')
 
 	x1 = rfg.predict(x)
