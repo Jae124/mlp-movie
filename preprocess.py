@@ -32,7 +32,7 @@ def preprocess(director_1, genres, runtime, img_url, actors):
 	except:
 		return None, " runtime "
 	x.drop('rating',axis=0,inplace=True)
-	x = x.reshape((1,3875))
+	x = x.reshape((1,len(x)))
 	from PIL import Image
 	from scipy.misc import imresize
 
