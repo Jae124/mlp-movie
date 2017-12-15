@@ -1,6 +1,7 @@
 import React from 'react';
 import TextInput from './TextInput.js';
 import VirtualizedSelect from 'react-virtualized-select'
+import createFilterOptions from 'react-select-fast-filter-options';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css'
@@ -8,7 +9,7 @@ import 'react-virtualized-select/styles.css'
 import {Typeahead} from 'react-bootstrap-typeahead';
 import DirectorData from './directors.json';
 import ActorData from './actors.json';
-// import ActorData from './testactors.json';
+import ActorOptions from './actorOptions.json';
 
 class UserInput extends React.Component {
     constructor(props){
@@ -45,9 +46,9 @@ class UserInput extends React.Component {
             { value: "(no genres listed)",label: "(no genres listed)"}
         ];
 
-        // need faster indexin
+        // need faster indexing
         this.actorOptions = ActorData;
-        // this.actorFasterOptions = createFilterOptions( ActorData );
+        this.actorFasterOptions = createFilterOptions( {ActorOptions} );
 
         // ** methods not bound by default in JS -> without bound, 'undefined'
         // ** if method referred without (), need to bind that method
@@ -66,7 +67,8 @@ class UserInput extends React.Component {
         // ** cannot return false like HTML- use preventDefault()
         e.preventDefault(); 
         console.log(this.state);
-        this.props.onSubmit( this.state.runtime, this.state.director, this.state.genres,this.state.poster_url );
+        this.props.onSubmit( this.state.runtime, this.state.director, 
+            this.state.genres, this.state.actors, this.state.poster_url );
     }
 
     // => try to handle both events in one method with event.target
@@ -145,25 +147,23 @@ class UserInput extends React.Component {
                                     onChange={this.handleGenreChange}/>
                         </div>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label className="control-label">Actor</label>
                                 <Select 
                                     options={this.actorOptions}
                                     multi value={this.state.actors} 
                                     onChange={this.handleActorChange}/>
                                     
-                        </div>
+                        </div> */}
 
-                        {/* <div className="form-group">
+                        <div className="form-group">
                             <label className="control-label">Actor</label>
                                 <VirtualizedSelect 
                                     options={this.actorOptions}
                                     multi value={this.state.actors} 
-                                    
-                                    onChange={(selectValue) => this.setState({ selectValue })}
-                                    value={this.state.selectValue}
+                                    onChange={this.handleActorChange}                                    
                                     />
-                        </div> */}
+                        </div>
 
                         <TextInput name="poster_url" label="Poster URL"
                             example="http://img.moviepostershop.com/titanic-movie-poster-1997-1020339699.jpg"

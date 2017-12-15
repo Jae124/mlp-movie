@@ -22,7 +22,7 @@ def preprocess(director_1, genres, runtime, img_url, actors):
 	
 	for a in actors:
  		if a != "":
- 			x['Actors_'+a] = 1
+ 			x['Actor_'+a] = 1
 	
 	try:
 		runtime = int(runtime)
