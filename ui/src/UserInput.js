@@ -28,7 +28,6 @@ class UserInput extends React.Component {
             { value: "Action",label: "Action"},
             { value: "Adventure",label: "Adventure"},
             { value: "Animation",label: "Animation"},
-            { value: "Children's",label: "Children's"},
             { value: "Comedy",label: "Comedy"},
             { value: "Crime",label: "Crime"},
             { value: "Documentary",label: "Documentary"},
@@ -48,7 +47,9 @@ class UserInput extends React.Component {
 
         // need faster indexing
         this.actorOptions = ActorData;
-        this.actorFasterOptions = createFilterOptions( {ActorOptions} );
+        this.state.actorFasterOptions = createFilterOptions( ActorOptions );
+
+        // console.log(options)
 
         // ** methods not bound by default in JS -> without bound, 'undefined'
         // ** if method referred without (), need to bind that method
@@ -159,6 +160,7 @@ class UserInput extends React.Component {
                         <div className="form-group">
                             <label className="control-label">Actor</label>
                                 <VirtualizedSelect 
+                                    // filterOption={actorFasterOptions}
                                     options={this.actorOptions}
                                     multi value={this.state.actors} 
                                     onChange={this.handleActorChange}                                    

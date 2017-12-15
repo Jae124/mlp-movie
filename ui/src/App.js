@@ -37,8 +37,7 @@ class App extends Component {
 
     const showInfo = this.state.showInfo;
     let predictDisply = null;
-    let posterDisplay = null;
-    posterDisplay = <ExampleSlide/>;
+    var posterDisplay = <ExampleSlide/>;
 
     if (showInfo) {
       var predictData = $.ajax({
@@ -59,10 +58,13 @@ class App extends Component {
 
     
       // error check
-      if(myData == " url "){
+      if(myData === " url "){
         predictDisply = <div><h2>Oops, please check poster URL input!</h2></div>;
-      } else if (myData == " runtime "){
+      } else if (myData === " runtime "){
         predictDisply = <div><h2>Oops, please check your runtime input!</h2></div>;
+      } else if (myData.charAt(0) === '<'){
+        predictDisply = <div><h2>Sorry, our actors list is currently unstable!
+          <br/>Please choose different actor(s).</h2></div>;
       } else{
         // format output
         var rating = myData.substring(1, myData.length - 1 )

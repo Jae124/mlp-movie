@@ -42,12 +42,13 @@ Go to "localhost:3000" in your browser.
 
 ### Parameters
 
-| Parameter  | Data type  | Notes                                      |
-| ---------  | ---------- | :----------------------------------------- |
-| Runtime    | int        |                                            |
-| Director   | string     | Only use the directors listed in `data/director_lst`|
-| Genre      | string     | For all genre, only use genres listed in `data/genres_list`|
-| Poster URL | string     | Only use IMDB image url's. Goto the IMDB page for a movie; click the poster image; right-click and select 'Copy Link Address' or equivalent  |
+| Parameter  | Data type  |  Required? | Notes                                      |
+| ---------  | ---------- | ---------- | :----------------------------------------- |
+| Runtime    | int        | Yes        |                                            |
+| Director   | string     | No         | Only choose director from the drop-down options|
+| Genre      | string     | No         | For all genre, only choose genre from the drop-down options|
+| Actor      | string     | No         | *IMPORTANT:* Currently Unstable. Some options may not work. Also, search is currently very slow; it is advisable to just scroll through the options and click |
+| Poster URL | string     | Yes        | Only use IMDB image url's: goto the IMDB page for a movie; click the poster image; right-click and select 'Copy Link Address' or equivalent  |
 
 
 
@@ -76,7 +77,7 @@ The best way to see the MVP is to checkout the commit with message "MVP Done": `
 ## 1st Iteration
 
 #### Rebekah
-* Drop-down menu for Director, Genre
+* Drop-down menu for Director, Genre, Actor
 * "Prettier" UI 
 	- Display poster passed
 	- Slide show of posters
@@ -87,13 +88,26 @@ The best way to see the MVP is to checkout the commit with message "MVP Done": `
 
 #### Valmik
 * Error Handling
-* Decouple pre processing and predictor
+* Decouple preprocessing and predictor
 
 #### Screenshot
+Starting Screen            |  Results Screen
+:-------------------------:|:-------------------------:
+![image](./first_iter_screen.png) |![image](./first_iter_result.png)
 
+
+### Requirements Met
+1. REST API
+2. Train (and use) a Model
+3. More than one service
+
+Our JIRA subscription ended; however, we followed the agile workflow, doing sprints, stand-ups, and retros.
 
 ## Future Iterations
-* Director encoding problem (quotes and Unicode)
+* Stabilize Actor parameters
+* Faster indexing for Actor options
+* Director and Actor name encoding problem (quotes and Unicode)
+* Add wait-time
 * Star Rating display 
 
 

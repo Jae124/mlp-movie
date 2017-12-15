@@ -5,15 +5,6 @@ import './ExampleSlide.css';
 
 
 class ExampleSlide extends React.Component {
-  constructor(props){
-    super(props);
-
-    // need to receive props.showInputPoster
-    // and change display 
-
-  }
-
-
   render() {
     const settings = {
       arrows: true,
