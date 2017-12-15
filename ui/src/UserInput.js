@@ -1,9 +1,14 @@
 import React from 'react';
 import TextInput from './TextInput.js';
+import VirtualizedSelect from 'react-virtualized-select'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css'
+import 'react-virtualized-select/styles.css'
 import {Typeahead} from 'react-bootstrap-typeahead';
 import DirectorData from './directors.json';
+import ActorData from './actors.json';
+// import ActorData from './testactors.json';
 
 class UserInput extends React.Component {
     constructor(props){
@@ -12,6 +17,7 @@ class UserInput extends React.Component {
             runtime : '',
             director : '',
             genres : [],
+            actors : [],
             poster_url : ''
          }
 
@@ -39,6 +45,10 @@ class UserInput extends React.Component {
             { value: "(no genres listed)",label: "(no genres listed)"}
         ];
 
+        // need faster indexin
+        this.actorOptions = ActorData;
+        // this.actorFasterOptions = createFilterOptions( ActorData );
+
         // ** methods not bound by default in JS -> without bound, 'undefined'
         // ** if method referred without (), need to bind that method
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,6 +56,8 @@ class UserInput extends React.Component {
         this.handleDirectorChange = this.handleDirectorChange.bind(this); 
         this.handlePosterChange = this.handlePosterChange.bind(this);
         this.handleGenreChange = this.handleGenreChange.bind(this);
+        this.handleActorChange = this.handleActorChange.bind(this);
+        
         
     }
 
@@ -90,6 +102,12 @@ class UserInput extends React.Component {
         this.setState({genres: tagValues});
     }
 
+    handleActorChange( actorList ){
+        const tagValues = actorList.map(a => a.value);
+        console.log(tagValues);
+        this.setState({actors: tagValues});
+    }
+
     render(){
         return(
             <div className="display">
@@ -126,6 +144,26 @@ class UserInput extends React.Component {
                                     multi value={this.state.genres} 
                                     onChange={this.handleGenreChange}/>
                         </div>
+
+                        <div className="form-group">
+                            <label className="control-label">Actor</label>
+                                <Select 
+                                    options={this.actorOptions}
+                                    multi value={this.state.actors} 
+                                    onChange={this.handleActorChange}/>
+                                    
+                        </div>
+
+                        {/* <div className="form-group">
+                            <label className="control-label">Actor</label>
+                                <VirtualizedSelect 
+                                    options={this.actorOptions}
+                                    multi value={this.state.actors} 
+                                    
+                                    onChange={(selectValue) => this.setState({ selectValue })}
+                                    value={this.state.selectValue}
+                                    />
+                        </div> */}
 
                         <TextInput name="poster_url" label="Poster URL"
                             example="http://img.moviepostershop.com/titanic-movie-poster-1997-1020339699.jpg"

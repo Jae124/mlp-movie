@@ -3,8 +3,7 @@
 This machine learning program will predict movie ratings based on runtime, director, genre, and poster image.
 
 ### Set-up 
-Please download the models [here](http://bit.ly/2BE1eZ4)
-and place the `models` folder in the same directory as predict_rating.py. 
+Please download the models [here](http://bit.ly/2BE1eZ4) and place the `models` folder in the same directory as predict_rating.py. Please also download an updated model [here](https://drive.google.com/file/d/1nEWisBLDowAiW9yl1VPXiAPt6NQTssz_/view) and place it in the `models` folder.
 
 JavaScript package manager, npm, and react (can be done through npm) should be installed.
 
@@ -57,7 +56,8 @@ Go to "localhost:3000" in your browser.
 Please wait for around 5 seconds for the prediction output.
 The output will be shown as follows:
 ```
-Predicted rating: [ x ] 
+Predicted rating: 
+	x  
 ```
 where x is the rating (double) that follows a 5-star rating system [0-5]. 
 
@@ -77,7 +77,6 @@ The best way to see the MVP is to checkout the commit with message "MVP Done": `
 
 #### Rebekah
 * Drop-down menu for Director, Genre
-* Star Rating display 
 * "Prettier" UI 
 	- Display poster passed
 	- Slide show of posters
@@ -91,4 +90,12 @@ The best way to see the MVP is to checkout the commit with message "MVP Done": `
 * Decouple pre processing and predictor
 
 #### Screenshot
+
+
+## Future Iterations
+* Director encoding problem (quotes and Unicode)
+* Star Rating display 
+
+
+
 

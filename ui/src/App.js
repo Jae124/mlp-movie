@@ -20,15 +20,16 @@ class App extends Component {
         runtime : "194", 
         director : "James Cameron",
         genres : [],
+        actors : [],
         poster_url : 'http://img.moviepostershop.com/titanic-movie-poster-1997-1020339699.jpg'
       };
 
       this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit( rt, dir, gnr, url ){
+  handleSubmit( rt, dir, gnr, actrs, url ){
     const newInput = { showInfo : true, runtime : rt, director : dir, 
-      genres : gnr, poster_url : url };
+      genres : gnr, actors : actrs, poster_url : url };
     this.setState( newInput );
   }
 
@@ -36,6 +37,8 @@ class App extends Component {
 
     const showInfo = this.state.showInfo;
     let predictDisply = null;
+    let posterDisplay = null;
+    posterDisplay = <ExampleSlide/>;
 
     if (showInfo) {
       var predictData = $.ajax({
@@ -43,6 +46,7 @@ class App extends Component {
         url: "http://localhost:7777/predict?runtime=" + this.state.runtime 
           + "&director=" + this.state.director 
           + "&genres=" + this.state.genres      
+          + "&actors=" + this.state.actors                
           + "&image_url=" + this.state.poster_url,
         async: false
       })
@@ -53,16 +57,24 @@ class App extends Component {
       console.log("JSON Response:")
       console.log(myData)
 
-      // format output
-      var rating = myData.substring(1, myData.length - 1 )
-
-      predictDisply = <div><h2>Predicted Rating: </h2> {rating}</div>;    
+    
+      // error check
+      if(myData == " url "){
+        predictDisply = <div><h2>Oops, please check poster URL input!</h2></div>;
+      } else if (myData == " runtime "){
+        predictDisply = <div><h2>Oops, please check your runtime input!</h2></div>;
+      } else{
+        // format output
+        var rating = myData.substring(1, myData.length - 1 )
+        predictDisply = <div><h2>Predicted Rating: </h2> {rating}</div>;
+      }
+      posterDisplay = <div><img alt='poster' src={this.state.poster_url}/></div>;
     }
 
     return (
       <div className="page-display">
         <div className='left-half'>
-          <ExampleSlide/>
+          {posterDisplay}
         </div>
         <div className='right-half'>
           <h1>Movie Rating Prediction</h1>
